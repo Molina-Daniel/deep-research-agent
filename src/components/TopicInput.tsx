@@ -28,8 +28,27 @@ export default function TopicInput() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const res = await fetch("/api/generate-questions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ topic: values.topicInput }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit topic");
+      }
+
+      console.log("Questions:", data);
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting topic:", error);
+      // TODO: Handle error appropriately
+    }
   }
 
   return (
