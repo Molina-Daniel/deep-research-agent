@@ -28,7 +28,7 @@ async function generateQuestions(topic: string) {
 
   try {
     const { object } = await generateObject({
-      model: openrouter("deepseek/deepseek-r1-0528:free"),
+      model: openrouter("google/gemini-2.5-flash-lite-preview-06-17"),
       schema: z.object({
         questions: z.array(z.string()),
       }),
