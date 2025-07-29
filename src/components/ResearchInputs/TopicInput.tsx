@@ -68,7 +68,7 @@ export default function TopicInput() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-lg mx-auto"
+        className="w-full mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-xl mx-auto"
       >
         <FormField
           control={form.control}

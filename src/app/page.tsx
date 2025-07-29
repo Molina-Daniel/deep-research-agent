@@ -1,8 +1,10 @@
 import ResearchInputs from "@/components/ResearchInputs";
+import ResearchOutputs from "@/components/ResearchOutputs";
+import DebugPanel from "@/components/DebugPanel";
 
 export default function Home() {
   return (
-    <main className="flex-grow flex flex-col items-center justify-start min-h-screen w-full gap-8 py-16 px-4 text-center max-w-2xl mx-auto">
+    <main className="flex-grow flex flex-col items-center justify-start min-h-screen w-full gap-8 py-16 px-4 text-center max-w-4xl mx-auto">
       <h1 className="text-4xl font-bold">
         Uncover Deep Insights with AI-Powered Research
       </h1>
@@ -13,6 +15,10 @@ export default function Home() {
       </p>
 
       <ResearchInputs />
+      <ResearchOutputs />
+
+      {/* Debug panel for development - remove in production */}
+      {process.env.NODE_ENV === "development" && <DebugPanel />}
     </main>
   );
 }

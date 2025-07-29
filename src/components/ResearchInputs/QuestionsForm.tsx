@@ -28,6 +28,8 @@ export default function QuestionForm() {
     setCurrentQuestion,
     setAnswers,
     setQuestionsCompleted,
+    startResearch,
+    isResearching,
   } = useDeepResearchStore();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -46,7 +48,9 @@ export default function QuestionForm() {
       setCurrentQuestion(currentQuestion + 1);
       form.setValue("answer", answers[currentQuestion + 1] || "");
     } else {
+      // Mark questions as completed and start research
       setQuestionsCompleted(true);
+      startResearch();
     }
   }
 
@@ -113,17 +117,19 @@ export default function QuestionForm() {
                 onClick={handlePreviousQuestion}
                 size="lg"
                 className="font-body font-medium text-md cursor-pointer"
-                disabled={currentQuestion === 0}
+                disabled={currentQuestion === 0 || isResearching}
               >
                 {"Back"}
               </Button>
               <Button
                 type="submit"
-                disabled={!form.formState.isValid}
+                disabled={!form.formState.isValid || isResearching}
                 size="lg"
                 className="font-body font-medium text-md cursor-pointer"
               >
-                {currentQuestion < questions.length - 1
+                {isResearching
+                  ? "Starting Research..."
+                  : currentQuestion < questions.length - 1
                   ? "Next Question"
                   : "Start Research"}
               </Button>
